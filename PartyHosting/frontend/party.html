@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Party Details</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f7f7;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: #333;
+      color: #fff;
+      padding: 10px 20px;
+    }
+    header h1 {
+      margin: 0;
+    }
+    nav a {
+      color: #fff;
+      margin-right: 10px;
+      text-decoration: none;
+    }
+    main {
+      padding: 20px;
+      max-width: 800px;
+      margin: auto;
+      background: white;
+      margin-top: 30px;
+      border-radius: 10px;
+      box-shadow: 0px 2px 8px rgba(0,0,0,0.1);
+    }
+    h2 {
+      margin-top: 0;
+    }
+    ul {
+      list-style-type: none;
+      padding-left: 0;
+    }
+    li {
+      background: #eee;
+      padding: 10px;
+      border-radius: 5px;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Party Details</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="create.html">Create Party</a>
+      <a href="join.html">Join Party</a>
+    </nav>
+  </header>
+
+  <main>
+    <h2 id="party-title">Loading...</h2>
+    <p id="party-description"></p>
+    <p><strong>Date:</strong> <span id="party-date"></span></p>
+    <p><strong>Seats Left:</strong> <span id="party-seats"></span></p>
+
+    <h3>Attendees (User IDs):</h3>
+    <ul id="attendee-list">
+      <!-- List of attendees -->
+    </ul>
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const partyId = urlParams.get('id');
+
+      if (!partyId) {
+        alert('No party selected.');
+        window.location.href = 'index.html';
+        return;
+      }
+
+      loadPartyDetails(partyId);
+      loadAttendees(partyId);
+    });
+
+    async function loadPartyDetails(partyId) {
+      try {
+        const response = await fetch(`http://localhost:5019/api/PartyAttendee/get-available-party`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch parties.');
+        }
+        const parties = await response.json();
+        const party = parties.find(p => p.id == partyId);
+
+        if (!party) {
+          alert('Party not found.');
+          window.location.href = 'index.html';
+          return;
+        }
+
+        document.getElementById('party-title').textContent = party.title;
+        document.getElementById('party-description').textContent = party.description;
+        document.getElementById('party-date').textContent = new Date(party.partyDate).toLocaleDateString();
+        document.getElementById('party-seats').textContent = party.seats;
+
+      } catch (error) {
+        console.error(error);
+        alert('Error loading party details.');
+      }
+    }
+
+    async function loadAttendees(partyId) {
+      try {
+        const response = await fetch(`http://localhost:5019/api/PartyAttendee/get_attendees?id=${partyId}`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch attendees.');
+        }
+        const attendees = await response.json();
+        const attendeeList = document.getElementById('attendee-list');
+
+        attendees.forEach(userId => {
+          const li = document.createElement('li');
+          li.textContent = `User ID: ${userId}`;
+          attendeeList.appendChild(li);
+        });
+      } catch (error) {
+        console.error(error);
+        const attendeeList = document.getElementById('attendee-list');
+        attendeeList.innerHTML = '<li>No attendees yet.</li>';
+      }
+    }
+  </script>
+
+</body>
+</html>

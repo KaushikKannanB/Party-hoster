@@ -1,0 +1,97 @@
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using PartyHosting.Data;
+using PartyHosting.Models;
+
+namespace PartyHosting.Controllers
+{
+    [ApiController]
+    [Route("api/[controller]")]
+    
+    public class PartyController : ControllerBase
+    {
+        private readonly Party_db_context context;
+        public PartyController(Party_db_context context)
+        {
+            this.context = context;
+        }
+
+        [HttpPost("create")]
+        public async Task<IActionResult> CreateParty([FromBody] Party party)
+        {
+            context.Party.Add(party);
+            await context.SaveChangesAsync();
+            return Ok("Created party successfully");
+        }
+
+        [HttpPut("update/{id}")]
+        public async Task<IActionResult> UpdateParty(int id, [FromBody] Party updatedParty)
+        {
+            var party = await context.Party.FindAsync(id);
+            if(party==null)
+            {
+                return NotFound("No such party exists");
+            }
+            party.Title = updatedParty.Title;
+            party.Description = updatedParty.Description;
+            party.PartyDate = updatedParty.PartyDate;
+            party.Seats = updatedParty.Seats;
+
+            await context.SaveChangesAsync();
+            return Ok("Changes made!");
+
+        }
+
+        [HttpDelete("delete/{id}")]
+        public async Task<IActionResult> DeleteParty(int id)
+        {
+            var party = await context.Party.FindAsync(id);
+
+            if(party==null)
+            {
+                return NotFound("No such party exists");
+            }
+
+            context.Party.Remove(party);
+            await context.SaveChangesAsync();
+
+            return Ok("Party Deleted");
+        }
+         
+        [HttpPost("join")]
+        public async Task<IActionResult> JoinParty([FromBody] Partyrequest request)
+        {
+            var party = await context.Party.FindAsync(request.PartyId);
+            var user = await context.Users.FindAsync(request.UserId);
+
+
+            if(party == null)
+            {
+                return NotFound("No such party is found in our db");
+            }
+            if(user == null)
+            {
+                return NotFound("No such user is found in our db");
+            }
+            var already_joined = await context.PartyAttendee.FirstOrDefaultAsync(pa => pa.PartyId == request.PartyId && pa.UserId == request.UserId);
+
+            if(already_joined!=null)
+            {
+                return BadRequest("ALready joined the party dude");
+            }
+            var attendee = new PartyAttendee{
+                PartyId = request.PartyId,
+                UserId = request.UserId
+            };
+
+            context.PartyAttendee.Add(attendee);
+            await context.SaveChangesAsync();
+            return Ok("Enjoy the party");
+        }   
+
+        public class Partyrequest{
+            public int PartyId {get; set;}
+            public int UserId {get; set;}
+        }
+    }
+}

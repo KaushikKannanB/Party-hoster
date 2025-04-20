@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join a Party</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f7f7f7;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background: #333;
+            color: #fff;
+            padding: 10px 20px;
+        }
+        header h1 {
+            margin: 0;
+        }
+        nav a {
+            color: #fff;
+            margin-right: 10px;
+            text-decoration: none;
+        }
+        main {
+            padding: 20px;
+            max-width: 500px;
+            margin: auto;
+            background: white;
+            margin-top: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 2px 8px rgba(0,0,0,0.1);
+        }
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+        select, input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            margin-top: 20px;
+            width: 100%;
+            background: #28a745;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background: #218838;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Join a Party</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="create.html">Create Party</a>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Join an Available Party</h2>
+
+        <label for="partySelect">Select a Party:</label>
+        <select id="partySelect">
+            <!-- Parties will be loaded here -->
+        </select>
+
+        <label for="userId">Enter Your User ID:</label>
+        <input type="number" id="userId" placeholder="Your User ID">
+
+        <button onclick="joinParty()">Join Party</button>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchParties();
+        });
+
+        async function fetchParties() {
+            try {
+                const response = await fetch(`http://localhost:5019/api/PartyAttendee/get-available-party`);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch parties');
+                }
+                const parties = await response.json();
+                const partySelect = document.getElementById('partySelect');
+
+                parties.forEach(party => {
+                    const option = document.createElement('option');
+                    option.value = party.id;
+                    option.textContent = party.title;
+                    partySelect.appendChild(option);
+                });
+            } catch (error) {
+                console.error(error);
+                alert('Error loading parties.');
+            }
+        }
+
+        async function joinParty() {
+            const partyId = document.getElementById('partySelect').value;
+            const userId = document.getElementById('userId').value;
+
+            if (!partyId || !userId) {
+                alert('Please select a party and enter your User ID.');
+                return;
+            }
+
+            try {
+                const response = await fetch(`http://localhost:5019/api/Party/join`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ partyId: parseInt(partyId), userId: parseInt(userId) })
+                });
+
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    throw new Error(errorText);
+                }
+
+                alert('Successfully joined the party!');
+                window.location.href = 'index.html'; // redirect to home
+            } catch (error) {
+                console.error(error);
+                alert('Error joining party: ' + error.message);
+            }
+        }
+    </script>
+
+</body>
+</html>

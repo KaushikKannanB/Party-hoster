@@ -1,0 +1,75 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+
+  </head>
+  <body>
+    <section id="header">
+      <a href="#"><img src="images/logo.png" alt=""></a>
+      <div>
+        <!-- <ul id="navbar">
+          <li><a class="active" href="index.html">Home</a></li>
+          <li><a href="party.html">Parties</a></li>
+          <li><a href="profile.html">Profile</a></li>
+        </ul> -->
+      </div>
+    </section>
+
+    <section id="hero">
+      <div class="carousel">
+        <div class="slides">
+            <div class="slide"><img src="images/party3.jpeg" alt="Slide 1"></div>
+            <div class="slide"><img src="images/party.jpg" alt="Slide 2"></div>
+        </div>
+      </div>
+        <div id="form">
+          <label for="email">Email</label><br>
+          <input type="email" name="email" id="email" required><br>
+  
+          <label for="password">Password</label><br>
+          <input type="password" name="password" id="password" required><br>
+          <button id="signup-btn" onclick="login()">Login</button>
+          <p>Do not have an account? <a href="signup.html">Sign up</a></p>
+        </div>
+    </section>
+    <script>
+      const email = document.getElementById("email");
+      const password = document.getElementById("password");
+
+      async function login()
+      {
+        if(!email.value.trim() || !password.value.trim()){
+          console.log(email);
+          console.log(password);
+          alert("All fields are required!");
+          return;
+        }
+        try{
+          const response = await fetch("http://localhost:5019/api/User/login",{
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({Email: email.value.trim(), Password: password.value.trim()})
+          });
+          if(!response.ok){
+            const errtxt = await response.text();
+            throw new Error(errtxt);
+          }
+
+          alert("Successful login");
+          window.location.href = 'party.html';
+        }
+        catch(error){
+          alert("login failed: "+error.message);
+        }
+        
+        
+      }
+
+    </script>
+  </body>
+</html>

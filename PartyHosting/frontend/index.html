@@ -1,0 +1,147 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+
+  </head>
+  <body>
+    <section id="header">
+      <a href="#"><img src="images/logo.png" alt=""></a>
+      <div>
+        <ul id="navbar">
+          <li><a class="active" href="index.html">Home</a></li>
+          <li><a href="party.html">Parties</a></li>
+          <li><a href="profile.html">Profile</a></li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="party">
+        <div id="create-party-container">
+            <div id="create-party">
+                <button id="create"><a href="create.html"></a></button>
+                <p>Create your own party</p>
+            </div>
+        </div>
+
+        <div id="load-parties">
+            
+        </div>
+    </section>
+    <script>
+      
+    </script>
+  </body>
+</html>
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Party Hosting - Home</title>
+    <style>
+        /* CSS */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f7f7f7;
+        }
+        header {
+            background: #333;
+            color: #fff;
+            padding: 10px 20px;
+        }
+        header h1 {
+            margin: 0;
+        }
+        nav a {
+            color: #fff;
+            margin-right: 10px;
+            text-decoration: none;
+        }
+        main {
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .party-card {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0px 2px 8px rgba(0,0,0,0.1);
+            width: 250px;
+        }
+        .party-card a {
+            display: inline-block;
+            margin-top: 10px;
+            color: #007bff;
+            text-decoration: none;
+        }
+        .party-card a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Available Parties</h1>
+        <nav>
+            <a href="create.html">Create Party</a>
+            <a href="join.html">Join Party</a>
+        </nav>
+    </header>
+
+    <main id="party-list">
+        <!-- Parties will be loaded here dynamically -->
+    </main>
+
+    <script> -->
+        // JavaScript
+//         document.addEventListener('DOMContentLoaded', () => {
+//             fetchParties();
+//         });
+
+//         async function fetchParties() {
+//     try {
+//         const response = await fetch("http://localhost:5019/api/PartyAttendee/get-available-party");
+//         if (!response.ok) {
+//             throw new Error('Failed to fetch parties.');
+//         }
+//         const parties = await response.json();
+
+//         console.log(parties); // Add this line to log the parties array
+
+//         const partyList = document.getElementById('party-list');
+//         partyList.innerHTML = ''; // Clear any existing content
+
+//         parties.forEach(party => {
+//             const card = document.createElement('div');
+//             card.className = 'party-card';
+//             card.innerHTML = `
+//                 <h3>${party.title}</h3>
+//                 <p>${party.description}</p>
+//                 <p><strong>Date:</strong> ${new Date(party.partyDate).toLocaleDateString()}</p>
+//                 <p><strong>Seats Left:</strong> ${party.seats}</p>
+//                 <a href="party.html?id=${party.id}">View Details</a>
+//             `;
+//             partyList.appendChild(card);
+//         });
+
+//     } catch (error) {
+//         console.error(error);
+//         alert(error);
+//     }
+// }
+
+    </script>
+
+<!-- </body>
+</html> -->
+
+
