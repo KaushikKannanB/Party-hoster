@@ -30,13 +30,26 @@ namespace PartyHosting.Controllers
         public async Task<IActionResult> GetMyParty(int UserId)
         {
             var parties = await context.PartyAttendee.Where(pa=>pa.UserId==UserId).ToListAsync();
-
             if(parties.Count==0)
             {
                 return BadRequest("Bo parties joined");
             }
             return Ok(parties);
         }
+
+        [HttpGet("get-party-deets")]
+        
+        public async Task<IActionResult> GetPartyDetails(int id)
+        {
+            var parties = await context.Party.Where(p=> p.Id==id).ToListAsync();
+            if(parties.Count==0)
+            {
+                return BadRequest("Bo parties joined");
+            }
+
+            return Ok(parties);
+        }
+        
 
         [HttpGet("get_attendees")]
         public async Task<IActionResult> GetAttendees(int id)
@@ -50,6 +63,19 @@ namespace PartyHosting.Controllers
 
             return Ok(attendees);
         }
+
+        [HttpGet("get-created-by-me")]
+        public async Task<IActionResult> Getcreatedparties(int createdby)
+        {
+            var party = await context.Party.Where(pa=> pa.Created_by==createdby).ToListAsync();
+            if(party.Count==0)
+            {
+                return BadRequest("No parties created");
+            }
+            return Ok(party);
+        }
+
+
         [HttpDelete("leave-party")]
         public async Task<IActionResult> LeaveParty([FromBody] Leaverequest request)
         {

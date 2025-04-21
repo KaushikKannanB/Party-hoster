@@ -9,6 +9,6 @@ namespace PartyHosting.Models
         public DateTime PartyDate {get; set;}
         public int Seats {get; set;}
         
-        public List<PartyAttendee>? Attendees {get; set;}
+        public int Created_by{get; set;}
     }
 }

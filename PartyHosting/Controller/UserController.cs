@@ -29,6 +29,22 @@ namespace PartyHosting.Controllers
             return Ok(user);
         }
 
+        [HttpGet("getuser")]
+        public async Task<IActionResult> GetUser(string email)
+        {
+            var user = await context.Users.FirstOrDefaultAsync(u=>u.Email== email);
+
+            return Ok(user.Id);
+        }
+
+        [HttpGet("getusername")]
+        public async Task<IActionResult> GetUsername(string email)
+        {
+            var user = await context.Users.FirstOrDefaultAsync(u=>u.Email== email);
+
+            return Ok(user.Username);
+        }
+        
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequest request)
         {
@@ -44,7 +60,7 @@ namespace PartyHosting.Controllers
                 return Unauthorized("Invalid Credentials");
             }
         }
-
+        
         public class LoginRequest
         {
             public required string Email { get; set; }

@@ -1,0 +1,113 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+  </head>
+  <body>
+    <section id="header">
+      <a href="#"><img src="images/logo.png" alt=""></a>
+      <div>
+        <ul id="navbar">
+          <li><a class="active" href="index.html">Home</a></li>
+          <!-- <li><a href="party.html">Parties</a></li> -->
+          <li><a href="profile.html">Profile</a></li>
+        </ul>
+      </div>
+    </section>
+    <h1 style="text-align: center;">Created Parties</h1>
+    <section id="party">
+        <p style="text-align: center;color: aliceblue;" id="comment"></p>
+        <div id="load-parties">
+        </div>
+    </section>
+    <script>
+        document.addEventListener('DOMContentLoaded',()=>{
+            fetchPartiescreated();
+        })
+        async function deleteparty(partyid){
+            try{
+                const response = await fetch(`http://localhost:5019/api/Party/delete?id=${partyid}`);
+
+                // if(!response.ok)
+                // {
+                //     throw new Error("Failed delete");
+                // }
+            }
+            catch(err){
+                alert(err);
+            }
+        }
+        async function getpartydeets(id) {
+            try{
+            const deets = await fetch(`http://localhost:5019/api/PartyAttendee/get-party-deets?id=${id}`);
+            if(!deets.ok)
+            {
+                throw new Error("Failed bb");
+            }
+            const deet = await deets.json();
+            return deet;
+            }
+            catch(err)
+            {
+                alert(err);
+            }
+
+        }
+        async function fetchPartiescreated()
+        {
+            try{
+                const useremail = localStorage.getItem("useremail");
+                const response = await fetch(`http://localhost:5019/api/User/getuser?email=${useremail}`);
+                if(!response.ok){
+                throw new Error("Failed")
+                }
+                
+                const user = await response.text();
+                const userid = Number(user);
+                const response_main = await fetch(`http://localhost:5019/api/PartyAttendee/get-created-by-me?createdby=${userid}`);
+                if(!response_main.ok){
+                    document.getElementById("comment").innerHTML = "No Parties found";
+                    return;
+                }
+                const parties_ids = await response_main.json();
+                partylist = document.getElementById("load-parties");
+                partylist.innerHTML = '';
+                console.log(parties_ids);
+                for (const id of parties_ids) {
+                    const d = await getpartydeets(id.id);
+                    const p = document.createElement('div');
+                    const p_id = d[0].id;
+                    p.className = 'party-card';
+                    p.innerHTML = `
+                        <h2 id="party-title">${d[0].title}</h2>
+                        <p id="party-description">${d[0].description}</p>
+                        <p id="party-date">Date: ${new Date(d[0].partyDate).toLocaleDateString()}</p>
+                    
+                    `
+                    const leaveBtn = document.createElement('button');
+                    leaveBtn.innerText = 'Delete party';
+                    leaveBtn.className = 'leave-button';
+                    leaveBtn.addEventListener('click', async () => {
+                        await deleteparty(d[0].id);
+                        fetchPartiescreated(); // Refresh after leaving
+                    });
+
+                    // p.appendChild(leaveBtn);
+
+
+                
+
+                    partylist.appendChild(p);
+                }
+            }
+            catch(error){
+                alert(error);
+            }
+
+        }
+    </script>
+  </body>
+</html>

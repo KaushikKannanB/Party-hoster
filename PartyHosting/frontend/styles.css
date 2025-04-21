@@ -1,6 +1,11 @@
 body
 {
     margin: 0;
+    /* background: linear-gradient(to right, #000000, #2c3e50, #4ca1af); */
+/* background: linear-gradient(to right, #000000, #00c6ff); */
+background: linear-gradient(to right, #000000, #8ec5fc, #e0c3fc);
+/* background: linear-gradient(135deg, rgba(0,0,0,0.8), #00c6ff); */
+
     font-family: 'Poppins', sans-serif;
     position: relative;
     height: 100%;
@@ -129,4 +134,223 @@ body
 {
     display: flex;
     flex-direction: column;
+}
+#create-party-container
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 200px;
+}
+#create-party
+{
+    background-color: aqua;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+}
+#create-party button
+{
+    border-radius: 50%;
+    background: white;
+    border: none;
+    height: 50px;
+    width: 50px;
+    font-size: x-large;
+}
+#create-party button:hover{
+    transform: scale(1.15);
+    background: linear-gradient(135deg, rgba(0,0,0,0.8), #00c6ff);
+    transition: all 0.3s ease-in-out;
+
+}
+#load-parties
+{
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px;
+    gap: 30px;
+    margin-left: 30px;
+}
+#join-party{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 7px;
+}
+#join-party button
+{
+    width: 30%;
+    height: 32px;
+    border-radius: 8px;
+    border: none;
+    background-color: #000;
+    color: #8ec5fc;
+    border: 2px solid #8ec5fc;
+    
+
+
+}
+#join-party button:hover
+{
+    background: linear-gradient(to right, #000000, #00c6ff);
+    color: white;
+    transform: scale(1.1);
+    transition: all 0.3s ease-in-out;
+}
+.party-card
+{
+    background-color: aliceblue;
+    width: 280px;
+    padding: 10px;
+}
+#party-id{
+    color: #395be4;
+}
+#party-title{
+    color: #fa6551;
+}
+
+
+/* join.html */
+#join-container
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* height: 100vh; */
+}
+#join-form
+{
+    
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    background-color: aliceblue;
+    gap:20px;
+    padding: 17px;
+}
+#join-form select, #join-form input
+{
+    height: 30px;
+    padding: 5px;
+    border-radius: 10px;
+    border: none;
+    background-color: #d5d0d08b;
+    
+}
+#join-form button
+{
+    width: 100%;
+    height: 32px;
+    border-radius: 8px;
+    border: none;
+    background-color: #000;
+    color: #8ec5fc;
+    border: 2px solid #8ec5fc;
+}
+#join-form button:hover
+{
+    background: linear-gradient(to right, #000000, #00c6ff);
+    color: white;
+    transform: scale(1.1);
+    transition: all 0.3s ease-in-out;
+}
+
+
+/* create.html */
+#create-container
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* height: 100vh; */
+}
+#create-form
+{
+    
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    background-color: aliceblue;
+    gap:20px;
+    padding: 17px;
+}
+#create-form h3
+{
+    text-align: center;
+}
+#create-form input
+{
+    height: 30px;
+    padding: 5px;
+    border-radius: 10px;
+    border: none;
+    background-color: #d5d0d08b;
+    
+}
+#create-form button
+{
+    width: 400px;
+    height: 32px;
+    border-radius: 8px;
+    border: none;
+    background-color: #000;
+    color: #8ec5fc;
+    border: 2px solid #8ec5fc;
+}
+#create-form button:hover
+{
+    background: linear-gradient(to right, #000000, #00c6ff);
+    color: white;
+    transform: scale(1.1);
+    transition: all 0.3s ease-in-out;
+}
+
+/* profile.html */
+#container
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 70%;
+    /* background-color: #e0c3fc */
+}
+#option-container
+{
+    background: linear-gradient(135deg, rgba(237, 98, 204, 0.8), #bc4fee);
+    width: 400px;
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+    border-radius: 10px;
+}
+#option-container div
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#option-container div button
+{
+    border-radius: 50%;
+    background: white;
+    border: none;
+    height: 50px;
+    width: 50px;
+    font-size: x-large;
+}
+#option-container div button:hover{
+    transform: scale(1.15);
+    background: linear-gradient(135deg, rgba(0,0,0,0.8), #00c6ff);
+    transition: all 0.3s ease-in-out;
+
 }

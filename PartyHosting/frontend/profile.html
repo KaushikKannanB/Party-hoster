@@ -1,0 +1,62 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    </head>
+    <body>
+        <section id="header">
+            <a href="#"><img src="images/logo.png" alt=""></a>
+            <div>
+              <ul id="navbar">
+                <li><a href="index.html">Home</a></li>
+                <!-- <li><a href="party.html">Parties</a></li> -->
+                <li><a class="active" href="profile.html">Profile</a></li>
+              </ul>
+            </div>
+          </section>
+        
+        <h1 style="text-align: center; color: aliceblue;" id="welcome"></h1>
+        <div id="container">
+            <div id="option-container">
+                <div id="joined">
+                    <button class="icon-btn" onclick="window.location.href = 'joinedparties.html'" id="create">
+                        <i class="uil uil-eye"></i>
+                    </button>
+                    <p>Joined Parties</p>
+                </div>
+                <div id="created">
+                    <button class="icon-btn" onclick="window.location.href = 'createdparties.html'" id="create">
+                        <i class="uil uil-check"></i>
+                    </button>
+                    <p>Created Parties</p>
+                </div>
+            </div>
+        </div>
+    <script>
+        document.addEventListener('DOMContentLoaded',()=>{
+            fetchusername();
+        });
+
+        async function fetchusername(){
+            const useremail = localStorage.getItem("useremail");
+            console.log(useremail);
+            try{
+            const response = await fetch(`http://localhost:5019/api/User/getusername?email=${useremail}`);
+
+            if(!response.ok){
+                throw new Error("Failed")
+            }
+
+            const user = await response.text();
+
+            const welcome = document.getElementById("welcome");
+            welcome.innerHTML = `Welcome ${user} `
+            }
+            catch(error)
+            {
+                alert(error);
+            }
+        }
+    </script>
+    </body>
+</html>

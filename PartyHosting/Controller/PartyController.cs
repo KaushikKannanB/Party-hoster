@@ -42,11 +42,17 @@ namespace PartyHosting.Controllers
 
         }
 
-        [HttpDelete("delete/{id}")]
+        [HttpDelete("delete")]
         public async Task<IActionResult> DeleteParty(int id)
         {
             var party = await context.Party.FindAsync(id);
+            var partyattendees_party = await context.PartyAttendee.Where(pa=>pa.PartyId==id).ToListAsync();
 
+            foreach(var v in partyattendees_party)
+            {
+                context.PartyAttendee.Remove(v);
+            }
+            
             if(party==null)
             {
                 return NotFound("No such party exists");

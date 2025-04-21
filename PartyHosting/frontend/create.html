@@ -4,89 +4,67 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Create Party - Party Hosting</title>
-  <style>
-    /* CSS */
-    body {
-      font-family: Arial, sans-serif;
-      background: #f7f7f7;
-      margin: 0;
-      padding: 0;
-    }
-    header {
-      background: #333;
-      color: #fff;
-      padding: 10px 20px;
-    }
-    header h1 {
-      margin: 0;
-    }
-    nav a {
-      color: #fff;
-      margin-right: 10px;
-      text-decoration: none;
-    }
-    main {
-      padding: 20px;
-    }
-    form {
-      background: white;
-      padding: 20px;
-      max-width: 400px;
-      margin: auto;
-      border-radius: 10px;
-      box-shadow: 0px 2px 8px rgba(0,0,0,0.1);
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-    }
-    input, textarea, button {
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      font-size: 1em;
-    }
-    button {
-      background-color: #007bff;
-      color: white;
-      cursor: pointer;
-      border: none;
-    }
-    button:hover {
-      background-color: #0056b3;
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<header>
-  <h1>Create a Party</h1>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="join.html">Join Party</a>
-  </nav>
-</header>
+  <section id="header">
+    <a href="#"><img src="images/logo.png" alt=""></a>
+    <div>
+      <ul id="navbar">
+        <li><a class="active" href="index.html">Home</a></li>
+        <!-- <li><a href="party.html">Parties</a></li> -->
+        <li><a href="profile.html">Profile</a></li>
+      </ul>
+    </div>
+  </section>
 
-<main>
-  <form id="create-party-form">
+<div id="create-container">
+  <div id="create-form">
+    <h3>Create Party!</h3>
+    <label for="title">Title</label>
     <input type="text" id="title" placeholder="Party Title" required />
+    <label for="description">Description</label>
     <textarea id="description" placeholder="Party Description" required></textarea>
+    <label for="date">Date</label>
     <input type="date" id="partyDate" required />
+    <label for="seats">Available Seats</label>
     <input type="number" id="seats" placeholder="Seats Available" required min="1" />
-    <button type="submit">Create Party</button>
-  </form>
-</main>
+    <button type="submit" onclick="createparty()">Create Party</button>
+  </div>
+</div>
 
 <script>
-  document.getElementById('create-party-form').addEventListener('submit', async (e) => {
-    e.preventDefault();
+  async function fetchuserid(){
+          const useremail = localStorage.getItem("useremail");
+          console.log(useremail);
+          try{
+          const response = await fetch(`http://localhost:5019/api/User/getuser?email=${useremail}`);
 
+          if(!response.ok){
+              throw new Error("Failed")
+          }
+          const userId = await response.text(); // or use .json() if it returns JSON
+          return Number(userId);
+          }
+          catch(error)
+          {
+              alert(error);
+          }
+    }
+  async function createparty() {
+    const create_id = await fetchuserid();
+    
+    console.log(create_id);
     const party = {
       title: document.getElementById('title').value,
       description: document.getElementById('description').value,
       partyDate: document.getElementById('partyDate').value,
-      seats: parseInt(document.getElementById('seats').value)
+      seats: parseInt(document.getElementById('seats').value),
+      created_by: create_id
     };
 
+    console.log("Sending party object:", JSON.stringify(party));
     try {
       const response = await fetch('http://localhost:5019/api/Party/create', {
         method: 'POST',
@@ -107,7 +85,8 @@
       console.error(error);
       alert('Error: ' + error.message);
     }
-  });
+  
+  }
 </script>
 
 </body>
