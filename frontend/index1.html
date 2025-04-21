@@ -1,0 +1,86 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+  </head>
+  <body>
+    <section id="header">
+      <a href="#"><img src="images/logo.png" alt=""></a>
+      <div>
+        <ul id="navbar">
+          <li><a class="active" href="index1.html">Home</a></li>
+          <!-- <li><a href="party.html">Parties</a></li> -->
+          <li><a href="profile.html">Profile</a></li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="party">
+        <div id="create-party-container">
+            <div id="create-party">
+                <button class="icon-btn" onclick="window.location.href = 'create.html'" id="create">
+                    <i class="uil uil-plus"></i>
+                </button>
+                <p>Host your own party</p>
+            </div>
+        </div>
+        <div id="join-party"><button onclick="window.location.href ='join.html'">Join any of the Parties below!!</button></div>
+        <div id="load-parties">
+            
+<!-- 
+            <div id="party-card">
+                <h2 id="party-title">hi</h2>
+                <p id="party-description">Its a hello</p>
+                <p id="party-date">02-09-2025</p>
+                <p id="party-available-seats">10</p>
+                <p id="contact">To contatc: 9900990099</p>
+                <p id="party-duration">0930-1230</p>
+                <button id="join-party"></button>
+            </div> -->
+        </div>
+    </section>
+    <script>
+        document.addEventListener('DOMContentLoaded',()=>{
+            fetchParties();
+        })
+
+        async function fetchParties()
+        {
+            try{
+                const response = await fetch("http://localhost:5019/api/PartyAttendee/get-available-party");
+                if(!response.ok){
+                    throw new Error("Failed to fetch parties");
+                }
+                const parties = await response.json();
+
+                console.log(parties);
+
+                partylist = document.getElementById("load-parties");
+                partylist.innerHTML = '';
+
+                parties.forEach(party => {
+                    const p = document.createElement('div');
+                    p.className = 'party-card';
+                    p.innerHTML = `
+                        <h2 id="party-id">ID: ${party.id}</h2>
+                        <h2 id="party-title">${party.title}</h2>
+                        <p id="party-description">${party.description}</p>
+                        <p id="party-date">Date: ${new Date(party.partyDate).toLocaleDateString()}</p>
+                        <p id="party-available-seats">Available Seats: ${party.seats}</p>
+                        <p id="party-duration">Duration: 0930-1230</p>
+                    `;
+
+                    partylist.appendChild(p);
+                });
+            }
+            catch(error){
+                alert(error);
+            }
+
+        }
+    </script>
+  </body>
+</html>
