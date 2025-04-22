@@ -354,3 +354,20 @@ background: linear-gradient(to right, #000000, #8ec5fc, #e0c3fc);
     transition: all 0.3s ease-in-out;
 
 }
+
+.leave-button
+{
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(0,0,0,0.8), #00c6ff);
+    border: none;
+    height: 50px;
+    width: 50px;
+    font-size: x-large;
+}
+.leave-button:hover{
+    transform: scale(1.15);
+    background-color: red;
+    color: white;
+    transition: all 0.3s ease-in-out;
+
+}
