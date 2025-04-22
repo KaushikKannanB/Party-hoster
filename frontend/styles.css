@@ -362,10 +362,10 @@ background: linear-gradient(to right, #000000, #8ec5fc, #e0c3fc);
     border: none;
     height: 30px;
     width: 100%;
-    font-size: x-large;
+    font-size: large;
 }
 .leave-button:hover{
-    transform: scale(1.15);
+    transform: scale(1.1);
     background-color: red;
     color: white;
     transition: all 0.3s ease-in-out;
