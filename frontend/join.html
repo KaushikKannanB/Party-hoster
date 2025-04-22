@@ -63,7 +63,7 @@
             // }
 
             try{
-                const response = await fetch("http://localhost:5019/api/PartyAttendee/get-available-party");
+                const response = await fetch("http://party-hoster.onrender.com/api/PartyAttendee/get-available-party");
                 if(!response.ok){
                     throw new Error("failed to fetch parties");
                 }
@@ -94,7 +94,7 @@
             }
 
             try {
-                const response = await fetch(`http://localhost:5019/api/Party/join`, {
+                const response = await fetch(`http://party-hoster.onrender.com/api/Party/join`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

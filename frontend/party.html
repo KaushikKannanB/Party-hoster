@@ -88,7 +88,7 @@
 
     async function loadPartyDetails(partyId) {
       try {
-        const response = await fetch(`http://localhost:5019/api/PartyAttendee/get-available-party`);
+        const response = await fetch(`http://party-hoster.onrender.com/api/PartyAttendee/get-available-party`);
         if (!response.ok) {
           throw new Error('Failed to fetch parties.');
         }
@@ -114,7 +114,7 @@
 
     async function loadAttendees(partyId) {
       try {
-        const response = await fetch(`http://localhost:5019/api/PartyAttendee/get_attendees?id=${partyId}`);
+        const response = await fetch(`http://party-hoster.onrender.com/api/PartyAttendee/get_attendees?id=${partyId}`);
         if (!response.ok) {
           throw new Error('Failed to fetch attendees.');
         }

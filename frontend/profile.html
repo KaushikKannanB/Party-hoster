@@ -41,7 +41,7 @@
             const useremail = localStorage.getItem("useremail");
             console.log(useremail);
             try{
-            const response = await fetch(`http://localhost:5019/api/User/getusername?email=${useremail}`);
+            const response = await fetch(`http://party-hoster.onrender.com/api/User/getusername?email=${useremail}`);
 
             if(!response.ok){
                 throw new Error("Failed")
