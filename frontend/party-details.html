@@ -1,0 +1,73 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+  </head>
+  <body>
+    <section id="header">
+      <a href="#"><img src="images/logo.png" alt=""></a>
+      <div>
+        <ul id="navbar">
+          <li><a class="active" href="index1.html">Home</a></li>
+          <!-- <li><a href="party.html">Parties</a></li> -->
+          <li><a href="profile.html">Profile</a></li>
+        </ul>
+      </div>
+    </section>
+    <div id="party-details-loaded">
+
+    </div>
+    
+    <script>
+       document.addEventListener("DOMContentLoaded",()=>{
+        fetchattendees();
+       })
+       async function fetchattendees()
+       {
+        try{
+            const params = new URLSearchParams(window.location.search);
+            const partyId = params.get('id');
+            const response = await fetch(`https://party-hoster.onrender.com/api/PartyAttendee/get_attendees?id=${partyId}`);
+
+            if(!response.ok)
+            {
+                throw new Error("fetch failed bb");
+            }
+
+            const attendees = await response.json();
+            const container = document.getElementById("party-details-loaded");
+
+      // Clear previous content if any
+      container.innerHTML = `<h2 style="text-align:center">Attendees</h2>`;
+
+      if (attendees.length === 0) {
+        container.innerHTML += `<p style="text-align:center">No one has joined the party yet.</p>`;
+      } else {
+        const list = document.createElement("ul");
+        list.style.textAlign = "center";
+        list.style.listStyle = "none";
+        list.style.padding = "0";
+
+        for (const userId of attendees) {
+          const nameResponse = await fetch(`https://party-hoster.onrender.com/api/User/getusername?email=${userId}`);
+          const username = await nameResponse.text();
+
+          const item = document.createElement("li");
+          item.innerText = `👤 ${username}`;
+          list.appendChild(item);
+        }
+
+        container.appendChild(list);
+      }
+        }
+        catch(error)
+        {
+            alert(error);
+        }
+       }
+    </script>
+  </body>
+</html>
