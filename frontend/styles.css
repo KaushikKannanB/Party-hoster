@@ -357,11 +357,11 @@ background: linear-gradient(to right, #000000, #8ec5fc, #e0c3fc);
 
 .leave-button
 {
-    border-radius: 50%;
+
     background: linear-gradient(135deg, rgba(0,0,0,0.8), #00c6ff);
     border: none;
-    height: 50px;
-    width: 50px;
+    height: 30px;
+    width: 100%;
     font-size: x-large;
 }
 .leave-button:hover{
