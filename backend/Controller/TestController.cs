@@ -15,18 +15,27 @@ namespace PartyHosting.Controllers
         }
 
         [HttpGet("check-db")]
-        public IActionResult CheckDatabaseConnection()
+public IActionResult CheckDatabaseConnection()
+{
+    try
+    {
+        var canConnect = _context.Database.CanConnect();
+        return Ok(new
         {
-            try
-            {
-                // Try to connect
-                _context.Database.CanConnect();
-                return Ok("✅ Database connection successful!");
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"❌ Database connection failed: {ex.Message}");
-            }
-        }
+            message = "✅ Database connection check completed.",
+            canConnect
+        });
+    }
+    catch (Exception ex)
+    {
+        return StatusCode(500, new
+        {
+            message = "❌ Database connection failed.",
+            error = ex.Message,
+            inner = ex.InnerException?.Message
+        });
+    }
+}
+
     }
 }
