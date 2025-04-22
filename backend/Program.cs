@@ -36,4 +36,6 @@ if (app.Environment.IsDevelopment())
 app.UseCors();
 app.UseAuthorization();
 app.MapControllers();
+
+app.MapGet("/", () => "🎉 Party Hoster API is running!");
 app.Run();
