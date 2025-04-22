@@ -98,6 +98,8 @@
                     leaveBtn.className = 'leave-button';
                     leaveBtn.addEventListener('click', async () => {
                         await leaveparty(d[0].id, userid);
+                        alert("Left the party....")
+                        window.location.href = "index1.html"
                         fetchPartiesjoined(); // Refresh after leaving
                     });
 
