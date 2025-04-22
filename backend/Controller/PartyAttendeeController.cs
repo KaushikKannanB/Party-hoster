@@ -85,6 +85,12 @@ namespace PartyHosting.Controllers
             {
                 return BadRequest("No such user in the party");
             }
+            var party__ = await context.Party.FindAsync(request.PartyId);
+
+            if(party__!=null)
+            {
+                party__.Seats+=1;
+            }
             context.PartyAttendee.Remove(party);
             await context.SaveChangesAsync();
 

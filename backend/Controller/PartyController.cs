@@ -91,6 +91,7 @@ namespace PartyHosting.Controllers
             };
 
             context.PartyAttendee.Add(attendee);
+            party.Seats-=1;
             await context.SaveChangesAsync();
             return Ok("Enjoy the party");
         }   
