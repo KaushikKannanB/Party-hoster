@@ -39,7 +39,7 @@
           const useremail = localStorage.getItem("useremail");
           console.log(useremail);
           try{
-          const response = await fetch(`http://party-hoster.onrender.com/api/User/getuser?email=${useremail}`);
+          const response = await fetch(`https://party-hoster.onrender.com/api/User/getuser?email=${useremail}`);
 
           if(!response.ok){
               throw new Error("Failed")
@@ -66,7 +66,7 @@
 
     console.log("Sending party object:", JSON.stringify(party));
     try {
-      const response = await fetch('http://party-hoster.onrender.com/api/Party/create', {
+      const response = await fetch('https://party-hoster.onrender.com/api/Party/create', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
