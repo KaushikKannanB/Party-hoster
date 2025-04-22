@@ -4577,11 +4577,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Presidio\\Party-hoster\\PartyHosting\\PartyHosting.csproj",
+      "projectUniqueName": "D:\\Presidio\\Party-hoster\\backend\\PartyHosting.csproj",
       "projectName": "PartyHosting",
-      "projectPath": "D:\\Presidio\\Party-hoster\\PartyHosting\\PartyHosting.csproj",
+      "projectPath": "D:\\Presidio\\Party-hoster\\backend\\PartyHosting.csproj",
       "packagesPath": "C:\\Users\\kaush\\.nuget\\packages\\",
-      "outputPath": "D:\\Presidio\\Party-hoster\\PartyHosting\\obj\\",
+      "outputPath": "D:\\Presidio\\Party-hoster\\backend\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\kaush\\AppData\\Roaming\\NuGet\\NuGet.Config"
