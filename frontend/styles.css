@@ -88,22 +88,37 @@ background: linear-gradient(to right, #000000, #8ec5fc, #e0c3fc);
     justify-content: space-evenly;
     gap: 50px;
 }
-#form
+#form ,#forms
 {
     display: flex;
     flex-direction: column;
     margin-top: 20px;
 }
-#form input
+#form label
+{
+    color: white;
+}
+#forms label
+{
+    color: black;
+}
+#form input, #forms input
 {
     height: 30px;
     border-radius: 10px;
     border: none;
     background-color: #d5d0d08b;
 }
-
+#form p
+{
+    color: whitesmoke;
+}
 #form p a{
-    color: blue;
+    color: rgb(0, 195, 255);
+    text-decoration: none;
+}
+#forms p a{
+    color: rgb(30, 0, 255);
     text-decoration: none;
 }
 #form p a:hover
@@ -368,4 +383,9 @@ background: linear-gradient(to right, #000000, #8ec5fc, #e0c3fc);
     color: white;
     border-radius: 10px;
     transition: all 0.3s ease-in-out;
+}
+
+input
+{
+    padding: 10px;
 }
