@@ -28,8 +28,8 @@
                 <!-- Parties will be loaded here -->
             </select>
 
-            <label for="userId">Enter Your User ID:</label>
-            <input type="number" id="userId" placeholder="Your User ID">
+            <!-- <label for="userId">Enter Your User ID:</label>
+            <input type="number" id="userId" placeholder="Your User ID"> -->
 
             <button onclick="joinParty()">Join Party</button>
         </div>
@@ -86,20 +86,28 @@
 
         async function joinParty() {
             const partyId = document.getElementById('partySelect').value;
-            const userId = document.getElementById('userId').value;
+            // const userId = document.getElementById('userId').value;
 
-            if (!partyId || !userId) {
-                alert('Please select a party and enter your User ID.');
+            if (!partyId) {
+                alert('Please select a party');
                 return;
             }
 
             try {
+                const useremail = localStorage.getItem("useremail");
+                const response_user = await fetch(`https://party-hoster.onrender.com/api/User/getuser?email=${useremail}`);
+                if(!response_user.ok){
+                throw new Error("Failed")
+                }
+                
+                const user = await response_user.text();
+                const userid = Number(user);
                 const response = await fetch(`https://party-hoster.onrender.com/api/Party/join`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ partyId: parseInt(partyId), userId: parseInt(userId) })
+                    body: JSON.stringify({ partyId: parseInt(partyId), userId: parseInt(userid) })
                 });
 
                 if (!response.ok) {
