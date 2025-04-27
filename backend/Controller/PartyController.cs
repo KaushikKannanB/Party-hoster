@@ -19,6 +19,10 @@ namespace PartyHosting.Controllers
         [HttpPost("create")]
         public async Task<IActionResult> CreateParty([FromBody] Party party)
         {
+            if(party.Seats<=0)
+            {
+                return BadRequest("Please make some seats for your attendees");
+            }
             context.Party.Add(party);
             await context.SaveChangesAsync();
             return Ok("Created party successfully");
@@ -74,6 +78,10 @@ namespace PartyHosting.Controllers
             if(party == null)
             {
                 return NotFound("No such party is found in our db");
+            }
+            if(party.Seats<=0)
+            {
+                return BadRequest("No seats available --> check out other parties!");
             }
             if(user == null)
             {
