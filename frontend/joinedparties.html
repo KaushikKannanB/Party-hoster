@@ -5,6 +5,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
   </head>
   <body>
     <section id="header">
@@ -102,8 +104,14 @@
                         window.location.href = "index1.html"
                         fetchPartiesjoined(); // Refresh after leaving
                     });
-
+                    const downloadBtn = document.createElement('button');
+                    downloadBtn.innerText = 'Download Ticket';
+                    downloadBtn.className = 'download-button';
+                    downloadBtn.addEventListener('click', () => {
+                        downloadTicket(d[0].title, userid);
+                    });
                     p.appendChild(leaveBtn);
+                    p.appendChild(downloadBtn);
 
 
                 
@@ -116,6 +124,48 @@
             }
 
         }
+        function downloadTicket(partyTitle, userId) {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            // Add a border (ticket feel)
+            doc.setLineWidth(0.8);
+            doc.rect(10, 10, 190, 120); // (x, y, width, height)
+
+            // Add a Title
+            doc.setFont("helvetica", "bold");
+            doc.setFontSize(28);
+            doc.text(" Party Ticket ", 55, 25);
+
+            // Draw a line under the title
+            doc.setLineWidth(0.5);
+            doc.line(20, 30, 190, 30);
+
+            // Party Name
+            doc.setFontSize(18);
+            doc.setFont("helvetica", "normal");
+            doc.text(`Party Name:`, 20, 55);
+
+            doc.setFont("helvetica", "bold");
+            doc.text(partyTitle, 70, 55);
+
+            // User ID
+            doc.setFont("helvetica", "normal");
+            doc.text(`User ID:`, 20, 75);
+
+            doc.setFont("helvetica", "bold");
+            doc.text(userId.toString(), 70, 75);
+
+            // Generated Time
+            doc.setFont("helvetica", "normal");
+            doc.setFontSize(12);
+            doc.text(`Generated on: ${new Date().toLocaleString()}`, 20, 105);
+
+            // Save the Ticket
+            doc.save(`Ticket_${partyTitle.replace(/\s+/g, '_')}_${userId}.pdf`);
+
+        }
+
     </script>
   </body>
 </html>

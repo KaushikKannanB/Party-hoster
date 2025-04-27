@@ -191,6 +191,10 @@ background: linear-gradient(to right, #000000, #8ec5fc, #e0c3fc);
     gap: 30px;
     margin-left: 30px;
 }
+#load-parties div button
+{
+    margin: 5px 0px;
+}
 #join-party{
     display: flex;
     justify-content: center;
@@ -370,7 +374,7 @@ background: linear-gradient(to right, #000000, #8ec5fc, #e0c3fc);
 
 }
 
-.leave-button
+.leave-button , .download-button
 {
     background: linear-gradient(135deg, rgba(0,0,0,0.8), #00c6ff);
     border: none;
@@ -384,8 +388,22 @@ background: linear-gradient(to right, #000000, #8ec5fc, #e0c3fc);
     border-radius: 10px;
     transition: all 0.3s ease-in-out;
 }
-
+.download-button:hover{
+    background: rgb(163, 49, 224);
+    color: white;
+    border-radius: 10px;
+    transition: all 0.3s ease-in-out;
+}
 input
 {
     padding: 10px;
+}
+
+.view-button
+{
+    border-radius: 10px;
+    width: 100%;
+    height: 30px;
+    border: none;
+    background-color: #00c6ff;
 }
