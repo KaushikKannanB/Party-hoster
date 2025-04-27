@@ -23,6 +23,10 @@ namespace PartyHosting.Controllers
             {
                 return BadRequest("Please make some seats for your attendees");
             }
+            if(party.PartyDate <= DateTime.Now)
+            {
+                return BadRequest("Are you expecting your attendees to time travel... Please!");
+            }
             context.Party.Add(party);
             await context.SaveChangesAsync();
             return Ok("Created party successfully");
