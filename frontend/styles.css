@@ -226,6 +226,19 @@ background: linear-gradient(to right, #000000, #8ec5fc, #e0c3fc);
     background-color: aliceblue;
     width: 280px;
     padding: 10px;
+    border-radius: 10px;
+}
+.party-card:hover
+{
+    background-color: #a19b9b;
+    transform: scale(1.04);
+    transition: all 0.3s ease-in-out;
+    color: aliceblue;
+}
+.party-card:hover #party-title,.party-card:hover #party-available-seats
+{
+    color: #55f01c;
+    font-size: x-large;
 }
 #party-id{
     color: #395be4;
