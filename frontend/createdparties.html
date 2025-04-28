@@ -83,7 +83,6 @@
                     p.className = 'party-card';
                     p.innerHTML = `
                         <h2 id="party-title">${d[0].title}</h2>
-                        <p id="party-description">${d[0].description}</p>
                         <p id="party-date">Date: ${new Date(d[0].partyDate).toLocaleDateString()}</p>
                         <button class="view-button" onclick="viewDetails(${p_id})">View Details</button>
                     `
