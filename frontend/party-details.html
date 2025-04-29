@@ -30,7 +30,7 @@
         try{
             const params = new URLSearchParams(window.location.search);
             const partyId = params.get('id');
-            const response = await fetch(`https://party-hoster.onrender.com/api/PartyAttendee/get_attendees?id=${partyId}`);
+            const response = await fetch(`http://localhost:5019/api/PartyAttendee/get_attendees?id=${partyId}`);
             console.log(response);
             if(!response.ok)
             {
